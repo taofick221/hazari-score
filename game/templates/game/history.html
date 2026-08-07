@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block title %}
+Round History
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+
+    <div>
+
+        <h2 class="fw-bold">
+
+            📜 Round History
+
+        </h2>
+
+        <p class="text-muted">
+
+            {{ rounds|length }} Rounds Played
+
+        </p>
+
+    </div>
+
+    <a
+        href="{% url 'game:game_detail' game.pk %}"
+        class="btn btn-primary">
+
+        ← Dashboard
+
+    </a>
+
+</div>
+
+{% if rounds %}
+
+{% for round in rounds %}
+
+<div class="card history-card shadow-lg mb-4">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h4 class="fw-bold">
+
+                🎲 Round #{{ round.round_number }}
+
+            </h4>
+
+            {% if round.is_valid %}
+
+            <span class="badge bg-success">
+
+                ✅ {{ round.total_score }}/360
+
+            </span>
+
+            {% else %}
+
+            <span class="badge bg-danger">
+
+                ❌ {{ round.total_score }}/360
+
+            </span>
+
+            {% endif %}
+
+        </div>
+
+        <div class="row g-3">
+
+            <div class="col-md-6">
+
+                <div class="player-history">
+
+                    👤 {{ game.player1_name }}
+
+                    <span>
+
+                        {{ round.player1_score }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="player-history">
+
+                    👤 {{ game.player2_name }}
+
+                    <span>
+
+                        {{ round.player2_score }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="player-history">
+
+                    👤 {{ game.player3_name }}
+
+                    <span>
+
+                        {{ round.player3_score }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="player-history">
+
+                    👤 {{ game.player4_name }}
+
+                    <span>
+
+                        {{ round.player4_score }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="d-flex gap-3 flex-wrap">
+
+            <a
+                href="{% url 'game:edit_round' round.pk %}"
+                class="btn btn-warning">
+
+                ✏️ Edit
+
+            </a>
+
+            <form
+                method="post"
+                action="{% url 'game:delete_round' round.pk %}">
+
+                {% csrf_token %}
+
+                <button
+                    class="btn btn-danger"
+                    onclick="return confirm('Delete Round {{ round.round_number }} ?')">
+
+                    🗑 Delete
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<div class="card shadow-lg">
+
+    <div class="card-body text-center py-5">
+
+        <div style="font-size:80px;">
+
+            🎮
+
+        </div>
+
+        <h3>
+
+            No Round History
+
+        </h3>
+
+        <p class="text-muted">
+
+            Play your first round.
+
+        </p>
+
+        <a
+            href="{% url 'game:game_detail' game.pk %}"
+            class="btn btn-primary">
+
+            Start Playing
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

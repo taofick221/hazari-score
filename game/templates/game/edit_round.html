@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Round
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-xl-8 col-lg-9">
+
+        <div class="card shadow-lg border-0">
+
+            <div class="card-body p-5">
+
+                <div class="d-flex justify-content-between align-items-center mb-5">
+
+                    <div>
+
+                        <h2 class="fw-bold">
+
+                            ✏️ Edit Round #{{ round.round_number }}
+
+                        </h2>
+
+                        <p class="text-muted mb-0">
+
+                            Total must be <strong>360</strong> points.
+
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="{% url 'game:game_detail' game.pk %}"
+                        class="btn btn-outline-primary">
+
+                        ← Back
+
+                    </a>
+
+                </div>
+
+                <div
+                    id="auto-fill-info"
+                    class="alert alert-info">
+
+                    Edit the scores or use Auto.
+
+                </div>
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+                    <div class="player-box mb-4">
+
+                        <div class="player-title">
+
+                            👤 {{ game.player1_name }}
+
+                        </div>
+
+                        <div class="input-group">
+
+                            {{ form.player1_score }}
+
+                            <button
+                                type="button"
+                                class="btn btn-outline-primary auto-fill-btn"
+                                data-player="0">
+
+                                ✨ Auto
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="player-box mb-4">
+
+                        <div class="player-title">
+
+                            👤 {{ game.player2_name }}
+
+                        </div>
+
+                        <div class="input-group">
+
+                            {{ form.player2_score }}
+
+                            <button
+                                type="button"
+                                class="btn btn-outline-primary auto-fill-btn"
+                                data-player="1">
+
+                                ✨ Auto
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="player-box mb-4">
+
+                        <div class="player-title">
+
+                            👤 {{ game.player3_name }}
+
+                        </div>
+
+                        <div class="input-group">
+
+                            {{ form.player3_score }}
+
+                            <button
+                                type="button"
+                                class="btn btn-outline-primary auto-fill-btn"
+                                data-player="2">
+
+                                ✨ Auto
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="player-box mb-4">
+
+                        <div class="player-title">
+
+                            👤 {{ game.player4_name }}
+
+                        </div>
+
+                        <div class="input-group">
+
+                            {{ form.player4_score }}
+
+                            <button
+                                type="button"
+                                class="btn btn-outline-primary auto-fill-btn"
+                                data-player="3">
+
+                                ✨ Auto
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-3 mt-4">
+
+                        <button
+                            id="save-round-btn"
+                            type="submit"
+                            class="btn btn-success">
+
+                            💾 Update Round
+
+                        </button>
+
+                        <a
+                            href="{% url 'game:history' game.pk %}"
+                            class="btn btn-secondary">
+
+                            Cancel
+
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
