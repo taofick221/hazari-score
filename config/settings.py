@@ -1,14 +1,20 @@
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "django-insecure-change-this-in-production",
+)
 
-SECRET_KEY = "django-insecure-change-this-in-production"
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-DEBUG = True
+ALLOWED_HOSTS = ["*"]
 
-ALLOWED_HOSTS = []
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.vercel.app",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -21,9 +27,11 @@ INSTALLED_APPS = [
     "game",
 ]
 
-
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -32,9 +40,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-
 ROOT_URLCONF = "config.urls"
-
 
 TEMPLATES = [
     {
@@ -56,9 +62,7 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = "config.wsgi.application"
-
 
 DATABASES = {
     "default": {
@@ -66,7 +70,6 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -83,7 +86,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "Asia/Dhaka"
@@ -92,8 +94,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -101,10 +102,12 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+STATICFILES_STORAGE = (
+    "whitenoise.storage.CompressedManifestStaticFilesStorage"
+)
 
-MEDIA_URL = "media/"
+MEDIA_URL = "/media/"
 
 MEDIA_ROOT = BASE_DIR / "media"
-
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
