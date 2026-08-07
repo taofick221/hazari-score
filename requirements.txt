@@ -1,1 +1,10 @@
-獡楧敲㵦㌽ㄮ⸲਱橤搭瑡扡獡ⵥ牵㵬㌽ㄮ㈮䐊慪杮㵯㘽ㄮ朊湵捩牯㵮㈽⸶⸰ਰ慰正条湩㵧㈽⸶ਲ਼獰捹灯㵧㌽㌮㐮瀊祳潣杰戭湩牡㵹㌽㌮㐮猊汱慰獲㵥〽㔮㔮琊摺瑡㵡㈽㈰⸶ਲ਼桷瑩湥楯敳㴽⸶㈱〮਍
+asgiref==3.12.1
+dj-database-url==3.1.2
+Django==6.1
+gunicorn==26.0.0
+packaging==26.3
+psycopg==3.3.4
+psycopg-binary==3.3.4
+sqlparse==0.5.5
+tzdata==2026.3
+whitenoise==6.12.0
